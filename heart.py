@@ -8,6 +8,8 @@ def heartb(k):
     return 12*math.cos(k) - 5*math.cos(2*k) - 2*math.cos(3*k) - math.cos(4*k)
 
 speed(0)
+tracer(0)
+hideturtle()
 bgcolor("black")
 color("red")
 
@@ -15,4 +17,5 @@ for i in range(6000):
     goto(hearta(i)*20, heartb(i)*20)
     goto(0, 0)
 
+update()
 done()
