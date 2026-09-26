@@ -8,7 +8,7 @@ def heartb(k):
     return 12*math.cos(k) - 5*math.cos(2*k) - 2*math.cos(3*k) - math.cos(4*k)
 
 speed(0)
-tracer(0)
+tracer(5)  # Tempo: kleinere Zahl = langsamer, größere Zahl = schneller
 hideturtle()
 bgcolor("black")
 color("red")
