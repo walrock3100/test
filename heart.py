@@ -17,10 +17,25 @@ for i in range(6000):
     goto(hearta(i)*20, heartb(i)*20)
     goto(0, 0)
 
-penup()
-goto(0, -90)
+# Blaues B, Linie für Linie
+tracer(1)
+speed(3)  # Tempo für das B: 1 = langsam, 10 = schnell
 color("blue")
-write("B", align="center", font=("Arial", 120, "bold"))
+pensize(12)
+
+penup()
+goto(-40, -80)
+pendown()
+setheading(90)
+forward(160)          # senkrechter Strich
+setheading(0)
+forward(40)
+circle(-40, 180)      # oberer Bogen
+forward(40)
+setheading(0)
+forward(45)
+circle(-40, 180)      # unterer Bogen
+forward(45)
 
 update()
 done()
