@@ -17,5 +17,10 @@ for i in range(6000):
     goto(hearta(i)*20, heartb(i)*20)
     goto(0, 0)
 
+penup()
+goto(0, -90)
+color("blue")
+write("B", align="center", font=("Arial", 120, "bold"))
+
 update()
 done()
