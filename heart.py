@@ -39,13 +39,14 @@ b.goto(b_punkte[0])
 b.pendown()
 
 schritte = 6000
+b_tempo = 2  # Tempo vom B: 1 = gleich schnell wie das Herz, 2 = doppelt so schnell, 3 = dreimal ...
 b_nr = 0
 for i in range(schritte):
     herz.goto(hearta(i)*20, heartb(i)*20)
     herz.goto(0, 0)
 
-    # Das B wächst gleichzeitig mit dem Herz
-    while b_nr < (i + 1) * len(b_punkte) // schritte:
+    # Das B wächst gleichzeitig mit dem Herz, nur b_tempo-mal so schnell
+    while b_nr < len(b_punkte) and b_nr < (i + 1) * len(b_punkte) * b_tempo // schritte:
         b.goto(b_punkte[b_nr])
         b_nr += 1
 
