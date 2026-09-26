@@ -7,35 +7,51 @@ def hearta(k):
 def heartb(k):
     return 12*math.cos(k) - 5*math.cos(2*k) - 2*math.cos(3*k) - math.cos(4*k)
 
-speed(0)
+def bogen(mx, my, r):
+    # Punkte eines Halbkreises rechts vom Mittelpunkt, von oben nach unten
+    return [(mx + r*math.cos(math.radians(a)), my + r*math.sin(math.radians(a)))
+            for a in range(90, -91, -5)]
+
+# Alle Punkte, durch die der Stift für das B fährt
+b_punkte = ([(-40, y) for y in range(-80, 81, 5)]      # senkrechter Strich
+            + [(x, 80) for x in range(-40, 1, 5)]      # oben nach rechts
+            + bogen(0, 40, 40)                         # oberer Bogen
+            + [(x, 0) for x in range(0, -41, -5)]      # zurück zur Mitte
+            + [(x, 0) for x in range(-40, 6, 5)]       # Mitte nach rechts
+            + bogen(5, -40, 40)                        # unterer Bogen
+            + [(x, -80) for x in range(5, -41, -5)])   # unten zurück
+
 tracer(5)  # Tempo: kleinere Zahl = langsamer, größere Zahl = schneller
-hideturtle()
 bgcolor("black")
-color("red")
 
-for i in range(6000):
-    goto(hearta(i)*20, heartb(i)*20)
-    goto(0, 0)
+herz = Turtle()
+herz.hideturtle()
+herz.speed(0)
+herz.color("red")
 
-# Blaues B, Linie für Linie
-tracer(1)
-speed(3)  # Tempo für das B: 1 = langsam, 10 = schnell
-color("blue")
-pensize(12)
+b = Turtle()
+b.hideturtle()
+b.speed(0)
+b.color("blue")
+b.pensize(12)
+b.penup()
+b.goto(b_punkte[0])
+b.pendown()
 
-penup()
-goto(-40, -80)
-pendown()
-setheading(90)
-forward(160)          # senkrechter Strich
-setheading(0)
-forward(40)
-circle(-40, 180)      # oberer Bogen
-forward(40)
-setheading(0)
-forward(45)
-circle(-40, 180)      # unterer Bogen
-forward(45)
+schritte = 6000
+b_nr = 0
+for i in range(schritte):
+    herz.goto(hearta(i)*20, heartb(i)*20)
+    herz.goto(0, 0)
+
+    # Das B wächst gleichzeitig mit dem Herz
+    while b_nr < (i + 1) * len(b_punkte) // schritte:
+        b.goto(b_punkte[b_nr])
+        b_nr += 1
+
+    # B immer vor den roten Linien halten
+    for linie in b.items:
+        getcanvas().tag_raise(linie)
 
 update()
 done()
